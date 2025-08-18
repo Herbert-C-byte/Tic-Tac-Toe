@@ -2,7 +2,12 @@ import Square from "./Square";
 import { useState } from "react";
 import "../styles/tailwind.css";
 
-export default function Board({ onWin }: { onWin: () => void }) {
+type BoardProps = {
+  onWin: () => void;
+  onDraw: () => void;
+}
+
+export default function Board({ onWin, onDraw }: BoardProps) {
   const [xIsNext, setXIsNext] = useState(true);
   const [squares, setSquares] = useState(Array(9).fill(null));
 
@@ -25,13 +30,26 @@ export default function Board({ onWin }: { onWin: () => void }) {
   if (winner) {
     status = `Winner: ${winner}`;
     onWin();
-  } else {
+  } else if (!winner && squares.every(Boolean)) {
+    status = "It's a draw!";
+    onDraw();
+
+  }
+    else {
     status = "Next Player: " + (xIsNext ? "X" : "O");
   }
 
   return (
     <>
-      <div className="text-stone-400 text-xl font-semibold mb-4 mx-auto w-full">
+      <div className="flex justify-between bg-red-400">
+        <button>
+          Return
+        </button>
+        <button>
+         Settings
+        </button>
+      </div>
+      <div className="text-[#F4B52E] text-xl font-bold mb-8 mx-auto w-full">
         {status}
       </div>
       <div className="bg-white rounded-xl p-4 border-r-8 border-b-8 border-indigo-800">
