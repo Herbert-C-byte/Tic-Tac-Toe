@@ -1,4 +1,5 @@
 import PlayIcon from "../assets/icons/play-icon";
+import SettingIcon from "../assets/icons/setting-icon";
 
 export default function Home({ onPlay }: { onPlay: () => void }) {
   return (
@@ -11,16 +12,16 @@ export default function Home({ onPlay }: { onPlay: () => void }) {
         />
         <div className="flex flex-col justify-center w-84 box-border size-80 gap-5">
           <button
-            className="bg-gradient-to-b from-[#E6BA5A] to-[#ECAF2D] flex justify-center items-center px-10 py-2 rounded-3xl font-bold border-b-4 border-[#C68907] text-6 text text-[#210045] w-full max-w-[343px]"
+            className="bg-gradient-to-b from-[#E6BA5A] to-[#ECAF2D] flex justify-center items-center px-10 py-2 rounded-3xl font-bold border-b-4 border-[#C68907] text-[#210045] w-full max-w-[343px]"
             onClick={onPlay}
           >
             Play<PlayIcon />
           </button>
           <button
-            className="bg-gradient-to-b from-[#E6BA5A] to-[#ECAF2D] px-10 py-2 rounded-3xl font-bold border-b-4 border-[#C68907] text-[#210045]"
+            className="bg-gradient-to-b from-[#E6BA5A] to-[#ECAF2D] flex justify-center items-center px-10 py-2 rounded-3xl font-bold border-b-4 border-[#C68907] text-[#210045]"
             onClick={() => console.log("Settings mockup working")}
           >
-            Setting⚙️
+            Settings<SettingIcon />
           </button>
         </div>
       </div>

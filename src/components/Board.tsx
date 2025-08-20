@@ -1,6 +1,7 @@
 import Square from "./Square";
 import { useEffect, useState } from "react";
 import "../styles/tailwind.css";
+import ReturnIcon from "../assets/icons/return-icon";
 
 type BoardProps = {
   onWin: () => void;
@@ -49,7 +50,7 @@ export default function Board({ onWin, onDraw }: BoardProps) {
     <>
       <div className="relative flex flex-col items-center">
         <div className="flex justify-between bg-red-400 w-full px-4 py-2">
-          <button>Return</button>
+          <button onClick={() => setScreen("home")}><ReturnIcon /></button>
           <button>Settings</button>
         </div>
         <div className="text-[#F4B52E] text-xl text-center font-bold mb-8 mx-auto w-full">
