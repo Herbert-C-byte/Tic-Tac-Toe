@@ -3,9 +3,9 @@ import type { PropsWithChildren } from "react";
 export default function Layout({ children }: PropsWithChildren) {
   return (
     <div
-      className="flex  justify-center min-h-screen"
+      className="flex justify-center min-h-screen"
       style={{
-        backgroundImage: "url(/public/image.png)",
+        backgroundImage: "url(/image.png)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
       }}
