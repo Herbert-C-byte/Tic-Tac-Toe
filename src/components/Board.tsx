@@ -50,7 +50,7 @@ export default function Board({ onWin, onDraw }: BoardProps) {
   return (
     <>
       <div className="relative flex flex-col items-center">
-        <div className="flex justify-between bg-red-400 w-full px-4 py-2">
+        <div className="w-full flex justify-between items-center">
           <button><ReturnIcon /></button>
           <button><SettingsIcon /></button>
         </div>
