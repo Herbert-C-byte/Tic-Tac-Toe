@@ -1,9 +1,16 @@
-import type {  PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 
-export default function Layout({children}: PropsWithChildren) {
+export default function Layout({ children }: PropsWithChildren) {
   return (
-    <div className="bg-gradient-to-b from-purple-500 to-indigo-900 flex flex-col h-screen justify-center items-center gap-4">
+    <div
+      className="flex  justify-center min-h-screen"
+      style={{
+        backgroundImage: "url(/public/image.png)",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+      }}
+    >
       {children}
     </div>
-  )
+  );
 }

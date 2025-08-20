@@ -1,14 +1,15 @@
 import Square from "./Square";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/tailwind.css";
 
 type BoardProps = {
   onWin: () => void;
   onDraw: () => void;
-}
+};
 
 export default function Board({ onWin, onDraw }: BoardProps) {
   const [xIsNext, setXIsNext] = useState(true);
+  const [timeLeft, setTimeLeft] = useState(5);
   const [squares, setSquares] = useState(Array(9).fill(null));
 
   const handleClick = (i: number) => {
@@ -25,6 +26,13 @@ export default function Board({ onWin, onDraw }: BoardProps) {
     setXIsNext(!xIsNext);
   };
 
+  useEffect(() => {
+    const timer = setInterval((prev) => {
+      prev - 1;
+    }, 1000);
+    return clearInterval(timer);
+  }, []);
+
   const winner = calculateWinner(squares);
   let status: string;
   if (winner) {
@@ -33,41 +41,68 @@ export default function Board({ onWin, onDraw }: BoardProps) {
   } else if (!winner && squares.every(Boolean)) {
     status = "It's a draw!";
     onDraw();
-
-  }
-    else {
-    status = "Next Player: " + (xIsNext ? "X" : "O");
+  } else {
+    status = "Player: " + (xIsNext ? "X" : "O") + " Turn";
   }
 
   return (
     <>
-      <div className="flex justify-between bg-red-400">
-        <button>
-          Return
-        </button>
-        <button>
-         Settings
-        </button>
-      </div>
-      <div className="text-[#F4B52E] text-xl font-bold mb-8 mx-auto w-full">
-        {status}
-      </div>
-      <div className="bg-white rounded-xl p-4 border-r-8 border-b-8 border-indigo-800">
-        <div className="grid grid-cols-3 gap-3">
-          <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
-          <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
-          <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
+      <div className="relative flex flex-col items-center">
+        <div className="flex justify-between bg-red-400 w-full px-4 py-2">
+          <button>Return</button>
+          <button>Settings</button>
+        </div>
+        <div className="text-[#F4B52E] text-xl text-center font-bold mb-8 mx-auto w-full">
+          {status}
+        </div>
+        <div className="bg-white rounded-xl ">
+          <div className="grid grid-cols-3 ">
+            <Square
+              value={squares[0]}
+              onSquareClick={() => handleClick(0)}
+              squareRounded={"border-t-0 border-l-0"}
+            />
+            <Square
+              value={squares[1]}
+              onSquareClick={() => handleClick(1)}
+              squareRounded={"border-t-0"}
+            />
+            <Square
+              value={squares[2]}
+              onSquareClick={() => handleClick(2)}
+              squareRounded={"border-t-0 border-r-0"}
+            />
 
-          <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
-          <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-          <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
+            <Square
+              value={squares[3]}
+              onSquareClick={() => handleClick(3)}
+              squareRounded={"border-l-0"}
+            />
+            <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
+            <Square
+              value={squares[5]}
+              onSquareClick={() => handleClick(5)}
+              squareRounded={"border-r-0"}
+            />
 
-          <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
-          <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
-          <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
+            <Square
+              value={squares[6]}
+              onSquareClick={() => handleClick(6)}
+              squareRounded={"border-b-0 border-l-0"}
+            />
+            <Square
+              value={squares[7]}
+              onSquareClick={() => handleClick(7)}
+              squareRounded={"border-b-0"}
+            />
+            <Square
+              value={squares[8]}
+              onSquareClick={() => handleClick(8)}
+              squareRounded={"border-b-0 border-r-0"}
+            />
+          </div>
         </div>
       </div>
-        
     </>
   );
 }

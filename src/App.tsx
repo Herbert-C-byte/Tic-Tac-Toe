@@ -6,10 +6,10 @@ import Selection from "./components/Selection";
 import Winner from "./components/Winner";
 import Draw from "./components/Draw";
 
+type StateProps = "home" | "select" | "pick" | "board" | "winner" | "draw"
+
 function App() {
-  const [screen, setScreen] = useState<
-    "home" | "select" | "pick" | "board" | "winner" | "draw"
-  >("home");
+  const [screen, setScreen] = useState<StateProps>("home");
 
   return (
     <>
