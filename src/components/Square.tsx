@@ -9,7 +9,7 @@ export default function Square({ value, onSquareClick, squareRounded }: SquarePr
     <button
       className={`w-20 h-20 md:w-24 md:h-24 flex items-center justify-center 
                  border-2 border-[#FFEFDC] 
-                 text-indigo-900 font-extrabold text-4xl ${squareRounded}
+                 text-indigo-900 font-extrabold  text-4xl ${squareRounded}
                 `}
       onClick={onSquareClick}
     >

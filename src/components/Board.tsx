@@ -4,6 +4,7 @@ import "../styles/tailwind.css";
 import ReturnIcon from "../assets/icons/return-icon";
 import SettingsIcon from "../assets/icons/settings-icon";
 
+
 type BoardProps = {
   onWin: () => void;
   onDraw: () => void;
@@ -49,7 +50,7 @@ export default function Board({ onWin, onDraw }: BoardProps) {
 
   return (
     <>
-      <div className="relative flex flex-col items-center">
+      <div className="relative flex flex-col items-center ">
         <div className="w-full flex justify-between items-center">
           <button><ReturnIcon /></button>
           <button><SettingsIcon /></button>
