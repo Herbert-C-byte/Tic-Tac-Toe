@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import "../styles/tailwind.css";
 import ReturnIcon from "../assets/icons/return-icon";
 import SettingsIcon from "../assets/icons/settings-icon";
-
+import XIcon from "../assets/icons/x-icon";
 
 type BoardProps = {
   onWin: () => void;
@@ -52,58 +52,27 @@ export default function Board({ onWin, onDraw }: BoardProps) {
     <>
       <div className="relative flex flex-col items-center ">
         <div className="w-full flex justify-between items-center">
-          <button><ReturnIcon /></button>
-          <button><SettingsIcon /></button>
+          <button>
+            <ReturnIcon />
+          </button>
+          <button>
+            <SettingsIcon />
+          </button>
         </div>
         <div className="text-[#F4B52E] text-xl text-center font-bold mb-8 mx-auto w-full">
           {status}
         </div>
-        <div className="bg-white rounded-xl ">
-          <div className="grid grid-cols-3 ">
+        <div className="bg-white rounded-xl w-full grid grid-cols-3 grid-rows-[repeat(3,_40px)]">
+          {squares.map((square, index) => (
             <Square
-              value={squares[0]}
-              onSquareClick={() => handleClick(0)}
-              squareRounded={"border-t-0 border-l-0"}
+              key={index}
+              value={square}
+              onSquareClick={() => handleClick(index)}
+              squareRounded={
+                index < 3 ? "border-b-0" : index > 5 ? "border-t-0" : ""
+              }
             />
-            <Square
-              value={squares[1]}
-              onSquareClick={() => handleClick(1)}
-              squareRounded={"border-t-0"}
-            />
-            <Square
-              value={squares[2]}
-              onSquareClick={() => handleClick(2)}
-              squareRounded={"border-t-0 border-r-0"}
-            />
-
-            <Square
-              value={squares[3]}
-              onSquareClick={() => handleClick(3)}
-              squareRounded={"border-l-0"}
-            />
-            <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-            <Square
-              value={squares[5]}
-              onSquareClick={() => handleClick(5)}
-              squareRounded={"border-r-0"}
-            />
-
-            <Square
-              value={squares[6]}
-              onSquareClick={() => handleClick(6)}
-              squareRounded={"border-b-0 border-l-0"}
-            />
-            <Square
-              value={squares[7]}
-              onSquareClick={() => handleClick(7)}
-              squareRounded={"border-b-0"}
-            />
-            <Square
-              value={squares[8]}
-              onSquareClick={() => handleClick(8)}
-              squareRounded={"border-b-0 border-r-0"}
-            />
-          </div>
+          ))}
         </div>
       </div>
     </>
