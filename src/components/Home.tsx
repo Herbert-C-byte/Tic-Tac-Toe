@@ -4,7 +4,7 @@ import SettingIcon from "../assets/icons/setting-icon";
 export default function Home({ onPlay }: { onPlay: () => void }) {
   return (
     <>
-      <div className="mx-auto mb-24">
+      <div className="sm-auto flex flex-col justify-center">
         <img
           className="mx-auto mb-24"
           src="./src/assets/logo.png"

@@ -21,8 +21,8 @@ function App() {
           <Selection onSelection={() => setScreen("pick")} />
         )}
         {screen === "pick" && (
-          <div className="flex flex-col items-center gap-3">
-            <p className="text-[#EBA105] text-3xl font-bold">Pick who goes first</p>
+          <div className="flex flex-col items-center gap-3 m-auto">
+            <p className="text-[#EBA105] text-3xl font-bold mb-4">Pick who goes first</p>
             <div className="flex gap-3">
               <button
                 onClick={() => setScreen("board")}

@@ -6,7 +6,7 @@ export default function Selection({
 }) {
   return (
     <>
-      <div className="flex flex-col items-center gap-3">
+      <div className="m-auto flex flex-col items-center gap-3">
         <h1 className="text-4xl font-semibold text-yellow-500">Select Level</h1>
         <img
           className="w-64"
