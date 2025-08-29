@@ -15,8 +15,8 @@ export default function Square({
   return (
     <button
       className={`flex items-center justify-center 
-                 border-2 border-[#FFEFDC] 
-                 text-indigo-900 font-extrabold  text-4xl ${squareRounded}
+                 border rounded-xl border-[#FFEFDC] 
+                 text-indigo-900 font-extrabold text-4xl ${squareRounded}
                 `}
       onClick={onSquareClick}
     >

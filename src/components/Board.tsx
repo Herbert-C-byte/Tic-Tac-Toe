@@ -1,9 +1,11 @@
 import Square from "./Square";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "../styles/tailwind.css";
 import ReturnIcon from "../assets/icons/return-icon";
 import SettingsIcon from "../assets/icons/settings-icon";
 import XIcon from "../assets/icons/x-icon";
+import { useSpeechRecognition } from "../hooks/useSpeechRecognition";
+
 
 type BoardProps = {
   onWin: () => void;
@@ -12,7 +14,6 @@ type BoardProps = {
 
 export default function Board({ onWin, onDraw }: BoardProps) {
   const [xIsNext, setXIsNext] = useState(true);
-  const [timeLeft, setTimeLeft] = useState(5);
   const [squares, setSquares] = useState(Array(9).fill(null));
 
   const handleClick = (i: number) => {
@@ -29,13 +30,6 @@ export default function Board({ onWin, onDraw }: BoardProps) {
     setXIsNext(!xIsNext);
   };
 
-  useEffect(() => {
-    const timer = setInterval((prev) => {
-      prev - 1;
-    }, 1000);
-    return clearInterval(timer);
-  }, []);
-
   const winner = calculateWinner(squares);
   let status: string;
   if (winner) {
@@ -50,7 +44,7 @@ export default function Board({ onWin, onDraw }: BoardProps) {
 
   return (
     <>
-      <div className="relative flex flex-col m-auto justify-between gap-">
+      <div className="flex flex-col m-auto justify-between h-full max-w-md p-4">
         <div className="w-full flex justify-between items-center">
           <button>
             <ReturnIcon />
@@ -63,7 +57,6 @@ export default function Board({ onWin, onDraw }: BoardProps) {
             {status}
           </div>
           <div className="bg-white rounded-xl w-full grid grid-cols-3 grid-rows-[repeat(3,_40px)]">
-            <div className="grid grid-cols-3 ">
               {squares.map((square, index) => (
                 <Square
                   key={index}
@@ -74,7 +67,6 @@ export default function Board({ onWin, onDraw }: BoardProps) {
                   }
                 />
               ))}
-            </div>
         </div>
       </div>
         </div>
