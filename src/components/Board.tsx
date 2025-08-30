@@ -1,11 +1,10 @@
 import Square from "./Square";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/tailwind.css";
 import ReturnIcon from "../assets/icons/return-icon";
 import SettingsIcon from "../assets/icons/settings-icon";
 import XIcon from "../assets/icons/x-icon";
 import { useSpeechRecognition } from "../hooks/useSpeechRecognition";
-
 
 type BoardProps = {
   onWin: () => void;
@@ -39,8 +38,30 @@ export default function Board({ onWin, onDraw }: BoardProps) {
     status = "It's a draw!";
     onDraw();
   } else {
-    status = "Player: " + (xIsNext ? "X" : "O") + " Turn";
+    status = "Vez do jogador: " + (xIsNext ? "X" : "O");
   }
+
+  const { transcript, listening, setListening } = useSpeechRecognition();
+
+  useEffect(() => {
+    if (!transcript) return;
+
+    if (transcript.includes("reiniciar")) {
+      setSquares(Array(9).fill(null));
+      setXIsNext(true);
+      return;
+    }
+
+    const match = transcript.match(/colocar (x|o) na posição (\d)/);
+    if (match) {
+      const player = match[1].toUpperCase();
+      const position = parseInt(match[2]) - 1; // posição de 1 a 9 → índice de 0 a 8
+
+      if ((player === "X" && xIsNext) || (player === "O" && !xIsNext)) {
+        handleClick(position);
+      }
+    }
+  }, [transcript]);
 
   return (
     <>
@@ -50,27 +71,46 @@ export default function Board({ onWin, onDraw }: BoardProps) {
             <ReturnIcon />
           </button>
           <button>
-            <SettingsIcon /></button>
+            <SettingsIcon />
+          </button>
         </div>
         <div>
           <div className="text-[#F4B52E] text-xl text-center font-bold mb-8 mx-auto w-full">
             {status}
           </div>
+
+          <div className="flex gap-2 justify-center mb-4">
+            <button
+              onClick={() => setListening(true)}
+              className="bg-gradient-to-r from-yellow-600 to-yellow-400 text-white px-4 py-2 rounded"
+            >
+              🎙️ Start voice
+            </button>
+            <button
+              onClick={() => setListening(false)}
+              className="bg-gradient-to-l from-yellow-600 to-yellow-400 text-white px-4 py-2 rounded"
+            >
+              🛑 Stop voice
+            </button>
+          </div>
+          <p className="text-center text-lg text-yellow-500 mb-2">
+            Último comando: {transcript}
+          </p>
+
           <div className="bg-white rounded-xl w-full grid grid-cols-3 grid-rows-[repeat(3,_40px)]">
-              {squares.map((square, index) => (
-                <Square
-                  key={index}
-                  value={square}
-                  onSquareClick={() => handleClick(index)}
-                  squareRounded={
-                    index < 3 ? "border-b-0" : index > 5 ? "border-t-0" : ""
-                  }
-                />
-              ))}
+            {squares.map((square, index) => (
+              <Square
+                key={index}
+                value={square}
+                onSquareClick={() => handleClick(index)}
+                squareRounded={
+                  index < 3 ? "border-b-0" : index > 5 ? "border-t-0" : ""
+                }
+              />
+            ))}
+          </div>
         </div>
       </div>
-        </div>
-        
     </>
   );
 }

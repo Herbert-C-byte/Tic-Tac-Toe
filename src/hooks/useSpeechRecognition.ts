@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
 
+declare global {
+  interface Window {
+    webkitSpeechRecognition: any;
+    SpeechRecognition: any;
+  }
+}
+
+
 const SpeechRecognition =
-  window.SpeechRecognition || (window as any).webkitSpeechRecognition;
+  window.SpeechRecognition || window.webkitSpeechRecognition;
 
 export const useSpeechRecognition = () => {
   const [transcript, setTranscript] = useState("");
