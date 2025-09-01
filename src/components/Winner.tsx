@@ -1,8 +1,9 @@
 type WinnerProps = {
   onHome: () => void;
+  onSelection: () => void;
 };
 
-export default function Winner({ onHome }: WinnerProps) {
+export default function Winner({ onHome, onSelection }: WinnerProps) {
   return (
     <div className="flex flex-col items-center">
       <div className="bg-white rounded-xl p-4 border-b-8 border-[#FFDB8E] flex flex-col gap-8">
@@ -15,7 +16,7 @@ export default function Winner({ onHome }: WinnerProps) {
             Home
           </button>
           <button
-            onClick={onHome}
+            onClick={onSelection}
             className="bg-gradient-to-b from-amber-400 to-amber-500 px-6 py-2 rounded-2xl font-bold"
           >
             Retry

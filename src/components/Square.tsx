@@ -23,7 +23,7 @@ export default function Square({
       {value === "X" ? (
         <XIcon size={28} />
       ) : value === "O" ? (
-        <img src="/O.svg" alt="o" className="w-7 h-7" />
+        <OIcon size={28} />
       ) : null}
     </button>
   );

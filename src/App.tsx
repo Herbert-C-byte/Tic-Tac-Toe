@@ -37,8 +37,8 @@ function App() {
             </div>
           </div>
         )}
-        {screen === "board" && <Board onWin={() => setScreen("winner")} onDraw={() => setScreen("draw")} />}
-        {screen === "winner" && <Winner onHome={() => setScreen("home")} />}
+        {screen === "board" && <Board onWin={() => setScreen("winner")} onDraw={() => setScreen("draw")} onTurnBack={() => setScreen("select")} />}
+        {screen === "winner" && <Winner onHome={() => setScreen("home")} onSelection={() => setScreen("select")} />}
         {screen === "draw" && <Draw onHome={() => setScreen("home")} />}
       </Layout>
     </>

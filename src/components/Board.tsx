@@ -9,9 +9,10 @@ import { useSpeechRecognition } from "../hooks/useSpeechRecognition";
 type BoardProps = {
   onWin: () => void;
   onDraw: () => void;
+  onTurnBack: () => void;
 };
 
-export default function Board({ onWin, onDraw }: BoardProps) {
+export default function Board({ onWin, onDraw, onTurnBack }: BoardProps) {
   const [xIsNext, setXIsNext] = useState(true);
   const [squares, setSquares] = useState(Array(9).fill(null));
 
@@ -38,7 +39,7 @@ export default function Board({ onWin, onDraw }: BoardProps) {
     status = "It's a draw!";
     onDraw();
   } else {
-    status = "Vez do jogador: " + (xIsNext ? "X" : "O");
+    status = "Next player: " + (xIsNext ? "X" : "O");
   }
 
   const { transcript, listening, setListening } = useSpeechRecognition();
@@ -52,22 +53,19 @@ export default function Board({ onWin, onDraw }: BoardProps) {
       return;
     }
 
-    const match = transcript.match(/colocar (x|o) na posição (\d)/);
+    const match = transcript.match(/(\d)/);
     if (match) {
-      const player = match[1].toUpperCase();
-      const position = parseInt(match[2]) - 1; // posição de 1 a 9 → índice de 0 a 8
+      const position = parseInt(match[1]) - 1; // posição de 1 a 9 → índice de 0 a 8
 
-      if ((player === "X" && xIsNext) || (player === "O" && !xIsNext)) {
-        handleClick(position);
-      }
+      handleClick(position);
     }
   }, [transcript]);
 
   return (
     <>
-      <div className="flex flex-col m-auto justify-between h-full max-w-md p-4">
-        <div className="w-full flex justify-between items-center">
-          <button>
+      <div className="relative flex flex-col h-full max-w-md p-4">
+        <div className="w-full flex justify-between items-center mb-52">
+          <button onClick={onTurnBack}>
             <ReturnIcon />
           </button>
           <button>
@@ -94,7 +92,7 @@ export default function Board({ onWin, onDraw }: BoardProps) {
             </button>
           </div>
           <p className="text-center text-lg text-yellow-500 mb-2">
-            Último comando: {transcript}
+            Last command: {transcript}
           </p>
 
           <div className="bg-white rounded-xl w-full grid grid-cols-3 grid-rows-[repeat(3,_40px)]">
