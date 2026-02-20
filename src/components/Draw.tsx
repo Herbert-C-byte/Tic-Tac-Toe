@@ -6,6 +6,7 @@ export default function Draw({ onHome }: { onHome: () => void }) {
       <div className=" flex flex-col gap-4">
           <button
             onClick={onHome}
+
             className="bg-gradient-to-b from-amber-400 to-amber-500 px-6 py-2 rounded-2xl font-bold"
           >
             Home 
